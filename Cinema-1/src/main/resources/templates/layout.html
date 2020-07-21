@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<meta charset="utf-8">
+	<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Gestion de cinema</title>
+	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"
+		th:href=@{/css/bootstrap.min.css}/>
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<!-- 
+			<ul class="navbar-nav">
+				<li><a class="navbar-brand">Cinema Hub</a></li>
+				<li><a class="nav-link" th:href="@{villes}">Villes</a></li>
+				<li><a class="nav-link" th:href="@{cinemas}">Cinemas</a></li>
+				<li><a class="nav-link" th:href="@{films}">Films</a></li>
+				<li><a class="nav-link" th:href="@{categories}">Film Categories</a></li>
+				<li><a class="nav-link" th:href="@{/login?logout}">Logout 
+					</a></li>
+			</ul>
+			 -->
+			 <a class="navbar-brand">Cinema Hub</a><span></span>
+			<ul class="nav nav-tabs card-header-tabs col" id="myTab">
+				<li class="nav-item">
+				</li>
+			</ul>
+			<ul class="nav nav-tabs card-header-tabs justify-content-end col-auto">
+			<li class="nav-item">
+					<a th:class="${#httpServletRequest.requestURI == 
+					'/config/villes'}?'nav-link active':'nav-link text-white'"
+					 th:href="@{villes}">Cities</a>
+				</li>
+				<li class="nav-item">
+					<a th:class="${#httpServletRequest.requestURI == 
+					'/config/cinemas'} OR ${#httpServletRequest.requestURI == 
+					'/config/salles'} OR ${#httpServletRequest.requestURI == 
+					'/config/projections'} OR ${#httpServletRequest.requestURI == 
+					'/config/tickets'}?'nav-link active':'nav-link text-white'"
+					 th:href="@{cinemas}">Cinemas</a>
+				</li>
+				<li class="nav-item">
+					<a th:class="${#httpServletRequest.requestURI == 
+					'/config/films'}?'nav-link active':'nav-link text-white'"
+					 th:href="@{films}">Films</a>
+				</li>
+				<li class="nav-item">
+					<a th:class="${#httpServletRequest.requestURI == 
+					'/config/categories'}?'nav-link active':'nav-link text-white'"
+					 th:href="@{categories}">Film Categories</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-white" th:href="@{/login?logout}">Logout</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+	<section layout:fragment="content">
+	
+	</section>
+	<footer>
+	
+	</footer>
+</body>
+</html>

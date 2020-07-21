@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"
+		th:href=@{/css/bootstrap.min.css}/>
+</head>
+<body>
+	<div class="container mt-4 mb-4 col-md-6" layout:fragment="content">
+		<div class="card">
+			<div class="card-header">
+				<h5>Modifier la projection</h5>
+			</div>
+			<div class="card-body">
+				<form th:action="@{saveProjection}" method="post">
+					<input type="hidden" name="salle" th:value="${salle.id}"/>
+					<div class="form-group">
+						<label>ID</label>
+						<input class="form-control" type="text" 
+							th:value="${projection.id}" disabled/>
+						<input type="hidden" name="id" th:value="${projection.id}"/>
+					</div>
+					<div class="form-group">
+						<label>Date de Projection</label>
+						<input type="date" placeholder="Date de Projection" 
+							name="dateProjection" class="form-control" 
+							th:value="${projection.dateProjection}" required/>
+						<div th:if="${error_date}">
+							<span th:text="${error_date}" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>Prix</label>
+						<input class="form-control" type="text" name="prix"
+							th:value="${projection.prix}" placeholder="Prix" min="1"
+							required/>
+					</div>
+					<div class="form-group">
+						<label>Film</label>
+						<select class="form-control"  name="film" required>
+						    <option th:value="${projection?.film?.id}" selected="selected" 
+						    	th:text="${projection?.film?.titre}"></option>
+						    <option th:each="f : ${films}" th:value="${f.id}" 
+						    	th:text="${f.titre}"></option>
+					    </select>
+					</div>
+					<div class="form-group">
+						<label>Seance</label>
+						<select class="form-control"  name="seance" required>
+						    <option th:value="${projection?.seance?.id}" selected="selected" 
+						    	th:text="${projection?.seance?.heureDebut}"></option>
+						    <option th:each="s : ${seances}" th:value="${s.id}" 
+						    	th:text="${s.heureDebut}"></option>
+					    </select>
+					    <div th:if="${error_seance}">
+							<span th:text="${error_seance}" class="text-danger"></span>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary">Enregistrer</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

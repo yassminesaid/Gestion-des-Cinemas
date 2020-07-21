@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"
+		th:href=@{/css/bootstrap.min.css}/>
+</head>
+<body>
+	<div class="container mt-4 mb-4 col-md-6" layout:fragment="content">
+		<div class="card">
+			<div class="card-header">
+				<h5>Modifier le film</h5>
+			</div>
+			<div class="card-body">
+				<form th:action="@{saveFilm}" method="post">
+					<div class="form-group">
+						<input type="hidden" name="id" th:value="${film.id}"/>
+						<label>ID</label>
+						<input type="text" 
+							class="form-control" th:value="${film.id}" disabled/>
+					</div>
+					<div class="form-group">
+						<label>Titre</label>
+						<input type="text" placeholder="Titre du film" name="titre"
+							class="form-control" th:value="${film.titre}" required/>
+					</div>
+					<div class="form-group">
+						<label>Déscription</label>
+						<input class="form-control" type="text" name="description"
+							th:value="${film.description}"/>
+					</div>
+					<div class="form-group">
+						<label>Réalisateur</label>
+						<input class="form-control" type="text" name="realisateur"
+							th:value="${film.realisateur}" required/>
+					</div>
+					<div class="form-group">
+						<label>Date de Sortie</label>
+						<input class="form-control" type="date" name="date"
+							th:value="${film.dateSortie}"/>
+					</div>
+					<div class="form-group">
+						<label>Durée</label>
+						<input class="form-control" type="number" name="duree"
+							th:value="${film.duree}" required/>
+					</div>
+					<div class="form-group">
+						<label>Image</label>
+						<input class="form-control" type="text" name="photo"
+							th:value="${film.photo}"/>
+					</div>
+					<div class="form-group">
+						<label>Categorie</label>
+					    <select class="form-control"  name="category" required>
+						    <option th:value="${film.categorie.id}" selected="selected" 
+						    	th:text="${film.categorie.name}"></option>
+						    <option th:each="c : ${categories}" th:value="${c.id}" 
+						    	th:text="${c.name}"></option>
+					    </select>
+					</div>
+					<button type="submit" class="btn btn-primary">Enregistrer</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

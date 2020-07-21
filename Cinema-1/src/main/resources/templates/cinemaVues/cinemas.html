@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"
+		th:href=@{/css/bootstrap.min.cvilleVuesss}/>
+</head>
+<body>
+	<div class="container mt-4 mb-4" layout:fragment="content">
+		<div class="card">
+			<div class="card-header">
+				<div class="row">
+					<div class="col">
+						<h5>Gestion des cinemas</h5>
+					</div>
+					<div class="col-auto">
+						<a class="btn btn-outline-primary"
+						   th:href="@{addCinema(ville_id=${ville.id})}">+</a>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<form th:action="@{cinemas}" method="get">
+					<div class="row mb-3">
+						<div class="col">
+							<select class="form-control"  name="ville" required>
+								<option th:value="${ville?.id}" 
+									selected="selected" 
+						    		th:text="${ville?.name}"></option>
+							    <option th:each="v : ${villes}" th:value="${v.id}" 
+							    	th:text="${v.name}"></option>
+						    </select>
+						</div>
+						<div class="col">
+							<input type="text" class="form-control" name="keyWord"
+								th:value="${keyWord}"
+								placeholder="Nom du cinema"/>
+						</div>
+						<div class="col-auto">
+							<button class="btn btn-outline-primary" 
+								>Search</button>
+						</div>
+					</div>
+				</form>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Longitude</th>
+							<th>Latitude</th>
+							<th>Altitude</th>
+							<th>NombreSalles</th>
+							<th>Gestion</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="cinema:${pageCinemas.content}">
+							<td th:text="${cinema.id}"></td>
+							<td th:text="${cinema.name}"></td>
+							<td th:text="${cinema.longitude}"></td>
+							<td th:text="${cinema.latitude}"></td>
+							<td th:text="${cinema.altitude}"></td>
+							<td th:text="${cinema.nombreSalles}"></td>
+							<td>
+								<a class="btn btn-outline-success"
+									th:href="@{salles(cinema=${cinema.id})}">Salles</a>
+							</td>
+							<td>
+								<a class="btn btn-outline-info"
+									th:href="@{editCinema(id=${cinema.id})}">Edit</a>
+							</td>
+							<td>
+								<a onclick="javascript:return confirm('Etes vous sure ?')"
+									class="btn btn-outline-danger"
+									th:href="@{deleteCinema(id=${cinema.id},
+									page=${currentPage}, size=${size},
+									ville=${ville?.id}, keyWord=${keyWord})}">
+								Delete</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<ul class="nav nav-pills">
+					<li th:each="page,status:${pages}">
+						<a th:class="${status.index==currentPage}?'btn btn-primary':'btn'"
+						   th:href="@{cinemas(page=${status.index}, size=${size},
+						   ville=${ville?.id}, keyWord=${keyWord})}"
+						   th:text="${status.index}"></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"
+		th:href=@{/css/bootstrap.min.css}/>
+</head>
+<body>
+	<div class="container mt-4 mb-4 col-md-6" layout:fragment="content">
+		<div class="card">
+			<div class="card-header">
+				<h5>Ajouter une salle</h5>
+			</div>
+			<div class="card-body">
+				<form th:action="@{saveSalle}" method="post">
+					<input type="hidden" name="cinema" th:value="${cinema.id}"/>
+					<div class="form-group">
+						<label>Nom</label>
+						<input type="text" placeholder="Nom de la salle" name="name"
+							class="form-control" th:value="${salle.name}" required/>
+					</div>
+					<div class="form-group">
+						<label>Nombre de places</label>
+						<input class="form-control" type="number" name="nombrePlace"
+							th:value="${salle.nombrePlace}" required
+							min="1"/>
+					</div>
+					<button type="submit" class="btn btn-primary">Enregistrer</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

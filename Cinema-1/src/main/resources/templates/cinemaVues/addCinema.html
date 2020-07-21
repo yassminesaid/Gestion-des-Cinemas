@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"
+		th:href=@{/css/bootstrap.min.css}/>
+</head>
+<body>
+	<div class="container mt-4 mb-4 col-md-6" layout:fragment="content">
+		<div class="card">
+			<div class="card-header">
+				<h5>Ajouter une cinema - <span th:text="${ville.name}"></span></h5>
+			</div>
+			<div class="card-body">
+				<form th:action="@{saveNewCinema}" method="post">
+					<input type="hidden" name="ville" th:value="${ville.id}"/>
+					<div class="form-group">
+						<label>Nom</label>
+						<input type="text" placeholder="Nom du cinema" name="name"
+							class="form-control" th:value="${cinema.name}" required/>
+					</div>
+					<div class="form-group">
+						<label>Longitude</label>
+						<input class="form-control" type="number" name="longitude"
+							th:value="${cinema.longitude}"/>
+					</div>
+					<div class="form-group">
+						<label>Latitude</label>
+						<input class="form-control" type="number" name="latitude"
+							th:value="${cinema.latitude}"/>
+					</div>
+					<div class="form-group">
+						<label>Altitude</label>
+						<input class="form-control" type="number" name="altitude"
+							th:value="${cinema.altitude}"/>
+					</div>
+					<div class="form-group">
+						<label>Nombre de salles</label>
+						<input class="form-control" type="number" name="nombreSalles"
+							min="1" th:value="${cinema.nombreSalles}"/>
+					</div>
+					<div class="form-group">
+						<label>Nombre de places dans chaque salle</label>
+						<input class="form-control" type="number" min="1" name="nombrePlaces"/>
+					</div>
+					<button type="submit" class="btn btn-primary">Enregistrer</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
